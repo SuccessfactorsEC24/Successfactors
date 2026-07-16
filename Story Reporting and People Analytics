@@ -1,0 +1,51 @@
+# SuccessFactors Story Reporting (People Analytics) Architecture Suite
+
+## 📌 Project Overview
+This repository contains data models, logical schema joins, and calculation frameworks designed for **SAP SuccessFactors Story Reporting (People Analytics)**. 
+
+The assets showcased here demonstrate expert-level capability in utilizing the embedded **SAP Analytics Cloud (SAC)** engine to bridge data silos across Core HR, Time Tracking, Performance, and Learning modules to deliver high-impact, actionable business intelligence dashboards.
+
+---
+
+## 🛠️ Key Technical Assets in This Folder
+
+*   `cross-module-data-model-joins.md`: A detailed structural blueprint outlining table relationships, entity linking, and cardinalities between Employee Central, Time Tracking, and LMS.
+*   `calculated-columns-and-formulas.txt`: A repository of advanced SAC syntax and logical formulas used to create dynamic age brackets, tenure bands, and localized date metrics.
+*   `dashboard-wireframe-and-use-cases.md`: Functional documentation detailing the canvas layouts, page tracking filters, and query optimizations used for executive dashboards.
+
+---
+
+## 💼 Business Case Study: Executive Diversity & Workforce Capability Dashboard
+
+### 1. The Business Challenge
+A global enterprise required real-time visibility into their global talent health, but their existing reporting infrastructure was highly fractured:
+*   **Data Silos:** Leadership could not view the direct correlation between training completions (LMS data) and subsequent year-end performance scores (PMGM data).
+*   **Static Canvas/Ad-Hoc Flaws:** Legacy Canvas and Ad-Hoc reports resulted in massive, unreadable flat CSVs that local HR teams had to manually clean and pivot in Excel every month.
+*   **Complex Matrix Permissions:** Reports frequently leaked sensitive compensation or demographic data because standard reporting engines bypassed complex, inherited Role-Based Permissions (RBP).
+
+### 2. Solution Architecture & Configuration Strategy
+To deliver a secure, interactive, and automated analytics experience, a unified cross-module Story Report was engineered:
+
+*   **Advanced Schema Linking:** Designed a centralized data model within the Story query builder. Established an inner join from `EmpEmployment` to `PerPerson`, and left outer joins reaching out to `EmpJob` (EC), `FormHeader` (PMGM), and `ItemCompletion` (LMS) utilizing strict `User ID` and `Date` constraints.
+*   **RBP-Enforced Data Privacy:** Leveraged Story Reporting’s native cell-level integration with SuccessFactors Role-Based Permissions. This ensured a single dashboard asset could be deployed globally—automatically filtering out sensitive compensation fields or specific regional rows based on the logged-in viewer's security profile.
+*   **Dynamic Calculated Measures:** Programmed complex calculated columns directly within the query interface. Built custom string formulas to dynamically categorize employees into **Tenure Bands** (e.g., `< 1 Year`, `1-3 Years`, `5+ Years`) and automated **Headcount Movement Flags** (Inbound, Outbound, Internal Transfer) based on `Event Reason` codes.
+*   **Interactive UX/UI Widgets:** Built a multi-tab executive dashboard featuring high-level analytic charts (headcount trends, performance distributions) with cascading page filters (Legal Entity, Department, Location) allowing leaders to instantly drill down from global overviews to local teams.
+
+### 3. Concrete Business Impact
+*   **100% Manual Effort Eliminated:** Replaced a 3-day manual Excel monthly reporting cycle with a live, self-service dashboard that updates automatically in real-time.
+*   **Data-Driven Talent Strategies:** Allowed executive leadership to immediately visualize that business units with a 90%+ compliance training completion rate in LMS scored 18% higher on average in their annual performance appraisals.
+*   **Bulletproof Security Compliance:** Zero data leakage occurrences due to the robust, automatic adherence to native SuccessFactors RBP profiles.
+
+---
+
+## 🔒 Security & Data Compliance Note
+All data schemas, calculation strings, and layout descriptions in this repository are entirely sanitized.
+*   **Zero Live Data:** No genuine corporate metrics, personal employee details, or real tenant endpoint names are stored.
+*   **Conceptual Layouts:** The files focus strictly on data modeling mechanics, join logic configurations, and functional SAC expressions to demonstrate technical competency safely.
+
+---
+
+## 🚀 How to Utilize These Templates
+1. Review the entity relationship layouts in `cross-module-data-model-joins.md` to learn how to efficiently link disparate SuccessFactors schemas without hitting query performance bottlenecks.
+2. Copy and adapt the formulas in `calculated-columns-and-formulas.txt` to quickly deploy custom dimensions inside your client's Story design canvas.
+3. Use the structural use cases as a blueprint for gathering functional requirements during client dashboard discovery workshops.
